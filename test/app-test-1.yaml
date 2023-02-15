@@ -6,24 +6,29 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-test-1-deploy
+  name: app-test-1
   namespace: app-test-1
+  creationTimestamp: null
+  labels:
+    app: {{ .Values.container.labels }}
+  name: "{{ .Release.Name }}-deployment"
 spec:
-  replicas: 1
-  selector: 
+  replicas: 3
+  selector:
     matchLabels:
-      app: app-test-1
+      app: {{ .Values.container.labels }}
+  strategy: {}
   template:
     metadata:
+      creationTimestamp: null
       labels:
-        app: app1-test-1
+        app: {{ .Values.container.labels }}
     spec:
       containers:
-      - name: app1-test-1
-        image: nginx
-        ports:
-        - name: web
-          containerPort: 80
+      - image:  {{ .Values.container.image }}
+        name: {{ .Values.container.name }}
+        resources: {}
+status: {}
 --- 
 apiVersion: v1
 kind: Service 
