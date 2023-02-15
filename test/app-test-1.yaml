@@ -12,7 +12,7 @@ spec:
   replicas: 3
   selector: 
     matchLabels:
-      app: app-test-1
+      app: app1-test-1  # updated label to match template
   template:
     metadata:
       labels:
